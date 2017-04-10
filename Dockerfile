@@ -5,8 +5,7 @@ FROM praekeltfoundation/python3-base:alpine
 # Copy in the source and install
 COPY marathon_acme /marathon-acme/marathon_acme
 COPY setup.py LICENSE README.md /marathon-acme/
-RUN pip install -e /marathon-acme/. && \
-    pip install tls
+RUN pip install service-identity && pip install -e /marathon-acme/.
 
 # Set up the entrypoint script
 COPY scripts/marathon-acme-entrypoint.sh /scripts/marathon-acme-entrypoint.sh
