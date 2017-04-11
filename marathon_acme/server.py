@@ -61,13 +61,17 @@ class MarathonAcmeServer(object):
     @app.route('/health', methods=['GET'])
     def health(self, request):
         """ Listens to incoming health checks from Marathon on ``/health``. """
-        if self.health_handler is None:
-            return self._no_health_handler(request)
-
-        health = self.health_handler()
-        response_code = OK if health.healthy else SERVICE_UNAVAILABLE
+#        if self.health_handler is None:
+#            return self._no_health_handler(request)
+#
+#        health = self.health_handler()
+#        response_code = OK if health.healthy else SERVICE_UNAVAILABLE
+        response_code = OK
         request.setResponseCode(response_code)
-        write_request_json(request, health.json_message)
+#        write_request_json(request, health.json_message)
+        write_request_json(request, {
+            'OK': 'Status: active'
+        })
 
     def _no_health_handler(self, request):
         self.log.warn('Request to /health made but no handler is set')
